@@ -140,6 +140,17 @@ export const db = {
           return { success: false, data: localData, error: 'ESTRUCTURA_INVALIDA' };
         }
 
+        // --- ESCUDO DE SEGURIDAD ---
+        // Si la nube tiene menos de 5 vehículos y nosotros tenemos más de 10 locales,
+        // no sobreescribimos automáticamente para evitar pérdida de datos por reset.
+        const cloudVehiclesCount = (cloudData.vehicles || []).length;
+        const localVehiclesCount = (localData.vehicles || []).length;
+
+        if (cloudVehiclesCount < 5 && localVehiclesCount > 10) {
+          console.warn('Bloqueo de seguridad: La nube parece estar reseteada. No sobreescribimos local.');
+          return { success: false, data: localData, error: 'POSIBLE_RESET_NUBE' };
+        }
+
         const merged = { ...localData, ...cloudData };
         merged.reportSettings.googleScriptUrl = url;
 
