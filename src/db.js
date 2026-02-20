@@ -102,6 +102,14 @@ export const db = {
       return INITIAL_DATA;
     }
     const parsed = JSON.parse(stored);
+
+    // Auto-fix: Ensure admin user always has admin role even in existing storage
+    if (parsed.users) {
+      parsed.users = parsed.users.map(u =>
+        u.username === 'admin' ? { ...u, role: 'admin' } : u
+      );
+    }
+
     // Ensure all keys exist from BLANK_DATA
     return { ...BLANK_DATA, ...parsed };
   },
