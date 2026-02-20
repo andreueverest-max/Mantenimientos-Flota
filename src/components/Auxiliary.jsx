@@ -563,27 +563,29 @@ const Auxiliary = ({ user }) => {
                 </div>
             ) : (
                 <div className="bc-card" style={{ maxWidth: '600px' }}>
-                    <form onSubmit={handleAdd} style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
-                        <input
-                            type="text"
-                            placeholder={`Nuevo valor para ${tables.find(t => t.id === activeTab).label}...`}
-                            className="search-input"
-                            style={{ flex: 1 }}
-                            value={newValue}
-                            onChange={(e) => setNewValue(e.target.value)}
-                            required
-                        />
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                            <button type="button" className="bc-button" style={{ backgroundColor: 'var(--bc-grey-10)', color: 'var(--bc-text)' }} onClick={handleLoadDefaults}>
-                                <RefreshCcw size={16} style={{ marginRight: '8px' }} />
-                                Cargar de Fábrica
-                            </button>
-                            <button type="submit" className="bc-button">
-                                <Plus size={16} style={{ marginRight: '8px' }} />
-                                Añadir
-                            </button>
-                        </div>
-                    </form>
+                    {isAdmin && (
+                        <form onSubmit={handleAdd} style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+                            <input
+                                type="text"
+                                placeholder={`Nuevo valor para ${tables.find(t => t.id === activeTab).label}...`}
+                                className="search-input"
+                                style={{ flex: 1 }}
+                                value={newValue}
+                                onChange={(e) => setNewValue(e.target.value)}
+                                required
+                            />
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <button type="button" className="bc-button" style={{ backgroundColor: 'var(--bc-grey-10)', color: 'var(--bc-text)' }} onClick={handleLoadDefaults}>
+                                    <RefreshCcw size={16} style={{ marginRight: '8px' }} />
+                                    Cargar de Fábrica
+                                </button>
+                                <button type="submit" className="bc-button">
+                                    <Plus size={16} style={{ marginRight: '8px' }} />
+                                    Añadir
+                                </button>
+                            </div>
+                        </form>
+                    )}
 
                     <table className="bc-table">
                         <thead>
@@ -599,9 +601,11 @@ const Auxiliary = ({ user }) => {
                                     <td>{item.id}</td>
                                     <td>{item.value}</td>
                                     <td>
-                                        <button onClick={() => handleDelete(item.id)} style={{ background: 'none', border: 'none', color: 'var(--bc-error)' }}>
-                                            <Trash2 size={16} />
-                                        </button>
+                                        {isAdmin && (
+                                            <button onClick={() => handleDelete(item.id)} style={{ background: 'none', border: 'none', color: 'var(--bc-error)' }}>
+                                                <Trash2 size={16} />
+                                            </button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

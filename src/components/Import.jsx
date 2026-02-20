@@ -9,6 +9,16 @@ const Import = ({ user }) => {
     const [isImporting, setIsImporting] = useState(false);
     const [encoding, setEncoding] = useState('UTF-8');
 
+    if (!isAdmin) {
+        return (
+            <div className="import-page" style={{ textAlign: 'center', padding: '100px 20px' }}>
+                <AlertTriangle size={64} color="var(--bc-warning)" style={{ marginBottom: '24px' }} />
+                <h2>Acceso Denegado</h2>
+                <p>Solo los administradores pueden acceder a las funciones de importación masiva de datos.</p>
+            </div>
+        );
+    }
+
     const addLog = (message, type = 'info') => {
         setLogs(prev => [...prev, { message, type, time: new Date().toLocaleTimeString() }]);
     };

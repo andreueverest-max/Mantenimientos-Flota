@@ -195,8 +195,10 @@ export const db = {
     return INITIAL_DATA;
   },
   clear: () => {
-    localStorage.setItem(DB_KEY, JSON.stringify(BLANK_DATA));
-    return BLANK_DATA;
+    const currentData = db.get();
+    const blankData = { ...BLANK_DATA, users: currentData.users };
+    localStorage.setItem(DB_KEY, JSON.stringify(blankData));
+    return blankData;
   }
 };
 

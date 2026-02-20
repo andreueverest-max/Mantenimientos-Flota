@@ -280,7 +280,9 @@ const App = () => {
           <SidebarItem icon={Truck} label="Vehículos" active={activeTab === 'vehicles'} onClick={() => setActiveTab('vehicles')} />
           <SidebarItem icon={ClipboardList} label="Mantenimiento" active={activeTab === 'maintenance'} onClick={() => setActiveTab('maintenance')} />
           <SidebarItem icon={Settings} label="Configuración" active={activeTab === 'auxiliary'} onClick={() => setActiveTab('auxiliary')} />
-          <SidebarItem icon={Database} label="Importar Datos" active={activeTab === 'import'} onClick={() => setActiveTab('import')} />
+          {user.role === 'admin' && (
+            <SidebarItem icon={Database} label="Importar Datos" active={activeTab === 'import'} onClick={() => setActiveTab('import')} />
+          )}
           <SidebarItem icon={FileText} label="Informes" active={activeTab === 'reports'} onClick={() => setActiveTab('reports')} />
         </div>
         <div className="sidebar-footer">
@@ -299,7 +301,7 @@ const App = () => {
               {activeTab === 'vehicles' && 'Vehículos'}
               {activeTab === 'maintenance' && 'Gestión de Mantenimiento'}
               {activeTab === 'auxiliary' && 'Tablas Auxiliares'}
-              {activeTab === 'import' && 'Importación Masiva'}
+              {activeTab === 'import' && user.role === 'admin' && 'Importación Masiva'}
               {activeTab === 'reports' && 'Informes de Flota'}
             </span>
           </div>
