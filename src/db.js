@@ -18,7 +18,7 @@ const BLANK_DATA = {
     googleScriptUrl: ''
   },
   users: [
-    { username: 'admin', password: 'password123' }
+    { username: 'admin', password: 'password123', role: 'admin' }
   ]
 };
 
@@ -85,7 +85,7 @@ const INITIAL_DATA = {
     googleScriptUrl: ''
   },
   users: [
-    { username: 'admin', password: 'password123' }
+    { username: 'admin', password: 'password123', role: 'admin' }
   ]
 };
 
